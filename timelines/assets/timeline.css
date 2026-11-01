@@ -1,17 +1,17 @@
 :root{
   --bg:#f7f3ec; --surface:#fffdf8; --ink:#2a241d; --muted:#6b6157; --rule:#ddd3c4; --band-a:#efe7da; --band-b:#e7dccb;
-  --k-record:#b0502a; --k-text:#2f5d8a; --k-thesis:#4c7a35; --k-scholarship:#7d4a8e; --k-climate:#1f7a80; --focus:#c8891d;
+  --k-record:#c4451c; --k-text:#a87800; --k-thesis:#1d5fd1; --k-scholarship:#9b3fa6; --k-climate:#2e8b3e; --focus:#c8891d;
   --serif:"EB Garamond", Garamond, Georgia, serif; --sans:"Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#1b1815; --surface:#24201c; --ink:#ede6db; --muted:#a99e90; --rule:#3b342d; --band-a:#2a2521; --band-b:#312b26;
-    --k-record:#e2865c; --k-text:#7fb0e0; --k-thesis:#95c27a; --k-scholarship:#c495d6; --k-climate:#5ec3c9; --focus:#e9b04a;
+    --k-record:#ff8a5c; --k-text:#e8c04a; --k-thesis:#7aa9ff; --k-scholarship:#d58ae0; --k-climate:#6cc97a; --focus:#e9b04a;
   }
 }
 :root[data-theme="dark"]{
   --bg:#1b1815; --surface:#24201c; --ink:#ede6db; --muted:#a99e90; --rule:#3b342d; --band-a:#2a2521; --band-b:#312b26;
-  --k-record:#e2865c; --k-text:#7fb0e0; --k-thesis:#95c27a; --k-scholarship:#c495d6; --k-climate:#5ec3c9; --focus:#e9b04a;
+  --k-record:#ff8a5c; --k-text:#e8c04a; --k-thesis:#7aa9ff; --k-scholarship:#d58ae0; --k-climate:#6cc97a; --focus:#e9b04a;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}

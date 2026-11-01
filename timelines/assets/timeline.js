@@ -220,7 +220,7 @@ function drawEgypt(g, sx, W){
   EGYPT.forEach(function(p, i){
     var a = sx(p[0]), b = sx(p[1]);
     if (b < 0 || a > W) return;
-    mk("rect", {x:a + 1, y:24, width:Math.max(0, b - a - 2), height:16, rx:3, fill:"var(--k-text)", opacity: i % 2 ? .10 : .18}, g);
+    mk("rect", {x:a + 1, y:24, width:Math.max(0, b - a - 2), height:16, rx:3, fill:"var(--muted)", opacity: i % 2 ? .10 : .18}, g);
     var cl = Math.max(a, PAD), cr = Math.min(b, W - PAD), w = cr - cl, lab = null;
     var full = "Egypt: " + p[2];
     if (smallW(full) + 12 < w) lab = full; else if (smallW(p[2]) + 10 < w) lab = p[2]; else if (smallW(p[3]) + 8 < w) lab = p[3];
