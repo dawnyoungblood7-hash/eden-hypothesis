@@ -23,7 +23,8 @@ var PAGES = [
   {id:"late-bronze", t:"The Late Bronze Age"},
   {id:"iron-age", t:"The Iron Age"},
   {id:"persian-hellenistic", t:"Persian and Hellenistic"},
-  {id:"genesis-dating", t:"When Was Genesis Written?"}
+  {id:"genesis-dating", t:"When Was Genesis Written?"},
+  {id:"long-memory", t:"Long Memory"}
 ];
 var PERIODS = [
  [-20000,-9700,"Epipaleolithic","Epipal."],
@@ -136,7 +137,7 @@ app.innerHTML =
   '<h3 class="list-h">All entries</h3><ol class="list" id="list"></ol>' +
   '<footer>' + (C.notes || []).map(function(n){ return '<p>' + rich(n) + '</p>'; }).join("") +
   '<p>Dates follow the book’s notation: BC, with no year zero. Radiocarbon “years ago” are counted from AD 1950 and rounded. A century or millennium spans its full bounds (the nineteenth century BC runs 1900–1801 BC). Mesopotamian dates follow the middle chronology; Egyptian dates follow the high chronology of Peter A. Clayton, <i>Chronicle of the Pharaohs</i> (London: Thames and Hudson, 1994).</p>' +
-  '<p>Shaded period bands follow approximate conventions for the Levant and Anatolia; regional boundaries vary by a century or more.' + (C.egypt ? ' The second band gives Clayton’s periods for Egypt.' : '') + '</p></footer>' +
+  (C.noBands ? '' : '<p>Shaded period bands follow approximate conventions for the Levant and Anatolia; regional boundaries vary by a century or more.' + (C.egypt ? ' The second band gives Clayton’s periods for Egypt.' : '') + '</p>') + '</footer>' +
   pageNav("bottom");
 
 var svg = $("svg");
@@ -205,6 +206,7 @@ function drawEvent(g, e, sx, row, W){
   mk("title", {}, ev).textContent = e.title + " — " + e.when;
 }
 function drawBands(g, sx, W, H){
+  if (C.noBands) return;
   PERIODS.forEach(function(p, i){
     var a = sx(p[0]), b = sx(p[1]);
     if (b < 0 || a > W) return;
