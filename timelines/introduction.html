@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eden Hypothesis Timeline</title>
+<meta name="description" content="Interactive timeline of dates before AD 1 in the introduction to The Eden Hypothesis, from Göbekli Tepe to the Book of Jubilees.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f3ec; --surface:#fffdf8; --ink:#2a241d; --muted:#6b6157; --rule:#ddd3c4; --band-a:#efe7da; --band-b:#e7dccb;
+  --k-record:#b0502a; --k-text:#2f5d8a; --k-thesis:#4c7a35; --k-dating:#7d4a8e; --focus:#c8891d;
+  --serif:"EB Garamond", Garamond, Georgia, serif; --sans:"Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1b1815; --surface:#24201c; --ink:#ede6db; --muted:#a99e90; --rule:#3b342d; --band-a:#2a2521; --band-b:#312b26;
+    --k-record:#e2865c; --k-text:#7fb0e0; --k-thesis:#95c27a; --k-dating:#c495d6; --focus:#e9b04a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1b1815; --surface:#24201c; --ink:#ede6db; --muted:#a99e90; --rule:#3b342d; --band-a:#2a2521; --band-b:#312b26;
+  --k-record:#e2865c; --k-text:#7fb0e0; --k-thesis:#95c27a; --k-dating:#c495d6; --focus:#e9b04a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:32px 16px 48px}
+header .kicker{font-family:var(--sans);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+header h1{font-weight:500;font-size:clamp(30px,5vw,44px);line-height:1.1;margin:0 0 10px}
+header p.lede{margin:0;max-width:62ch;color:var(--muted);font-size:19px}
+.controls{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-start;justify-content:space-between;margin:28px 0 12px}
+.group{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.group-label{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);width:100%;margin-bottom:2px}
+button{font:inherit;color:inherit}
+.chip{font-family:var(--sans);font-size:14px;border:1px solid var(--rule);background:var(--surface);border-radius:999px;padding:5px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;line-height:1.2}
+.chip:hover{border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.kind[aria-pressed="false"]{opacity:.5}
+.chip.kind[aria-pressed="true"]{background:var(--surface);color:var(--ink);border-color:var(--muted)}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+.zoombtns{display:flex;gap:6px}
+.chip.icon{width:34px;justify-content:center;padding:5px 0;font-size:17px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+.chart{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:10px 0 4px;position:relative;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.chart svg{display:block;width:100%;cursor:grab}
+.chart svg.dragging{cursor:grabbing}
+.chart .hint{font-family:var(--sans);font-size:12px;color:var(--muted);padding:2px 16px 6px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.band-label{font-family:var(--sans);font-size:11px;fill:var(--muted);letter-spacing:.04em}
+.tick text{font-family:var(--sans);font-size:12px;fill:var(--muted)}
+.tick line{stroke:var(--rule)}
+.ev{cursor:pointer}
+.ev text{font-family:var(--sans);font-size:13px;fill:var(--ink)}
+.ev .hit{fill:transparent}
+.ev:hover text,.ev.sel text{font-weight:600}
+.ev:focus{outline:none}
+.ev:focus-visible .hit{stroke:var(--focus);stroke-width:2;rx:4}
+.ev.dim{opacity:.35}
+
+.detail{margin-top:18px;background:var(--surface);border:1px solid var(--rule);border-left:5px solid var(--kc,var(--rule));border-radius:10px;padding:20px 22px 18px}
+.detail .meta{font-family:var(--sans);font-size:13px;color:var(--muted);letter-spacing:.04em;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.detail .meta .kind-name{color:var(--kc);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:12px}
+.detail h2{font-weight:500;font-size:clamp(24px,3.4vw,30px);line-height:1.2;margin:6px 0 4px}
+.detail .when{font-size:21px;margin:0 0 4px}
+.detail .written{color:var(--muted);font-style:italic;margin:0 0 12px;font-size:17px}
+.detail .ctx{margin:0;max-width:70ch}
+.detail .nav{display:flex;gap:8px;margin-top:16px;font-family:var(--sans)}
+.detail .nav .chip{font-size:13px}
+.empty{color:var(--muted);font-style:italic}
+
+h3.list-h{font-weight:500;font-size:22px;margin:36px 0 10px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+ol.list{list-style:none;margin:0;padding:0}
+ol.list li{border-bottom:1px solid var(--rule)}
+ol.list button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:150px 1fr;gap:4px 18px;width:100%;padding:10px 8px;cursor:pointer;border-radius:6px}
+ol.list button:hover{background:var(--band-a)}
+ol.list button:focus-visible{outline:2px solid var(--focus)}
+ol.list li.sel button{background:var(--band-b)}
+.l-date{font-family:var(--sans);font-size:14px;color:var(--muted);padding-top:3px;display:flex;gap:8px;align-items:baseline}
+.l-date .dot{transform:translateY(1px)}
+.l-title{font-size:18px}
+@media (max-width:560px){
+  ol.list button{grid-template-columns:1fr;gap:0}
+  .detail{padding:16px}
+}
+footer{margin-top:32px;font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.55;max-width:80ch}
+footer p{margin:0 0 6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker"><a href="../" style="color:inherit;text-decoration:none">The Eden Hypothesis</a> · Introduction</p>
+    <h1>From Göbekli Tepe to Jubilees</h1>
+    <p class="lede">Nineteen dates before AD 1 from the introduction, spanning ninety-five centuries: the first stone enclosures of the Taurus foothills, the first wine and the first swords, the patriarchal horizon of the Middle Bronze Age, and the scholars who have tried to date Genesis itself.</p>
+  </header>
+
+  <div class="controls">
+    <div class="group" id="eras" role="group" aria-label="Zoom to era">
+      <span class="group-label">View</span>
+    </div>
+    <div class="group" id="kinds" role="group" aria-label="Filter by kind">
+      <span class="group-label">Show</span>
+    </div>
+  </div>
+
+  <div class="chart" id="chart">
+    <svg id="svg" role="group" aria-label="Timeline chart"></svg>
+    <div class="hint"><span id="rangeLabel"></span><span>Drag to move through time · select a marker for detail</span>
+      <span class="zoombtns"><button class="chip icon" id="zoomOut" aria-label="Zoom out">−</button><button class="chip icon" id="zoomIn" aria-label="Zoom in">+</button></span></div>
+  </div>
+
+  <section class="detail" id="detail" aria-live="polite"></section>
+
+  <h3 class="list-h">All entries</h3>
+  <ol class="list" id="list"></ol>
+
+  <footer>
+    <p>Dates follow the book’s notation: BC, with no year zero. Radiocarbon “years ago” are counted from AD 1950 and rounded. A century or millennium spans its full bounds (the nineteenth century BC runs 1900–1801 BC).</p>
+    <p>Shaded period bands follow approximate conventions for the Levant and Anatolia; regional boundaries vary by a century or more.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+var KINDS = {
+  record: {name:"Archaeological record", v:"--k-record"},
+  text:   {name:"Texts and history", v:"--k-text"},
+  thesis: {name:"Patriarchal horizon", v:"--k-thesis"},
+  dating: {name:"Dating Genesis", v:"--k-dating"}
+};
+
+var EVENTS = [
+ {id:1, s:-9600, e:-9600, kind:"record", sec:"I", label:"Göbekli Tepe enclosures",
+  title:"Oldest Göbekli Tepe enclosures built", when:"c. 9600 BC", written:"around 9600 BC, or some 11,600 years ago",
+  ctx:"The great circular enclosures of Layer III, ringed by T-shaped limestone pillars carved with foxes, boars, snakes, and vultures, belong to the Pre-Pottery Neolithic A."},
+ {id:2, s:-9600, e:-8200, kind:"record", sec:"I", label:"Göbekli Tepe in use",
+  title:"Göbekli Tepe in use", when:"c. 9600–8200 BC", written:"until about 8200 BC",
+  ctx:"Range from the UNESCO World Heritage inscription of 2018. The smaller rectangular buildings of Layer II carry the site’s use into the Pre-Pottery Neolithic B."},
+ {id:3, s:-9050, e:-9050, kind:"record", sec:"III", label:"Grapevine domesticated",
+  title:"Grapevine domesticated in two centers, one in the South Caucasus", when:"c. 9050 BC", written:"around eleven thousand years ago",
+  ctx:"A genomic survey of 3,525 cultivated and wild vines (Dong et al., Science 379, 2023) finds two domestications of roughly equal age, one in western Asia and one in the Caucasus. Eleven thousand years before AD 1950 falls near 9050 BC."},
+ {id:4, s:-9000, e:-8001, kind:"record", sec:"III", label:"Livestock under management",
+  title:"Sheep, goats, pigs, and cattle come under management across the Taurus–Zagros arc", when:"Ninth millennium BC", written:"ninth millennium BC",
+  ctx:"Kill-off profiles that favor young males, documented for goats at Ganj Dareh in the Zagros (Zeder and Hesse, Science 287, 2000), reveal herding before any change in body size."},
+ {id:5, s:-4100, e:-4100, kind:"record", sec:"III", label:"Areni-1 winery",
+  title:"Areni-1 winery, Armenia", when:"c. 4100 BC", written:"around 4100 BC",
+  ctx:"A clay press basin, a fermentation vat, and storage jars in a cave in southern Armenia, with grape residues identified chemically (Barnard et al., Journal of Archaeological Science 38, 2011). The published title gives “around 4000 BCE.”"},
+ {id:6, s:-4004, e:-4004, kind:"dating", sec:"IV", label:"Ussher’s creation date", hist:true,
+  title:"Ussher’s date for creation", when:"4004 BC", written:"4004 BC",
+  ctx:"James Ussher, Annales Veteris Testamenti (1650), set creation at the nightfall preceding October 23, 4004 BC, in the Julian calendar. The date belongs to the history of scholarship, not to the history of the earth."},
+ {id:7, s:-3300, e:-3300, kind:"record", sec:"III", label:"Arslantepe swords",
+  title:"Oldest swords; the palace at Arslantepe", when:"c. 3300 BC", written:"around 3300 BC",
+  ctx:"Arsenical-copper swords from the Period VI A public complex at Arslantepe, near Malatya in eastern Anatolia, the oldest swords yet recovered."},
+ {id:8, s:-3300, e:-3200, kind:"record", sec:"V", label:"Gerzeh iron beads",
+  title:"Meteoritic iron beads at Gerzeh, Egypt", when:"Before 3200 BC", written:"before 3200 BC",
+  ctx:"Tubular beads from a Naqada II grave at Gerzeh, near the entrance to the Faiyum, hammered from nickel-rich meteoritic iron (Rehren et al., Journal of Archaeological Science 40, 2013). Iron reached Egypt from the sky some two thousand years before smelting made it common."},
+ {id:9, s:-3300, e:-3001, kind:"record", sec:"VI", label:"Kura-Araxes spreads",
+  title:"Kura-Araxes culture spreads south and west", when:"Late fourth millennium BC", written:"from the late fourth millennium BC",
+  ctx:"Hand-built, burnished black-and-red pottery and portable hearth stands carry the Kura-Araxes signature from the South Caucasus into eastern Anatolia, northwestern Iran, and, as Khirbet Kerak ware, the southern Levant."},
+ {id:10, s:-2500, e:-2001, kind:"record", sec:"V", label:"Alaca Höyük iron dagger",
+  title:"Gold-hilted meteoritic iron dagger, Alaca Höyük", when:"Later third millennium BC", written:"later third millennium",
+  ctx:"An iron blade set in a gold hilt, from the Early Bronze Age royal tombs of Alaca Höyük in central Anatolia; nickel in the blade points to meteoritic iron."},
+ {id:11, s:-1938, e:-1759, kind:"text", sec:"V", label:"Tale of Sinuhe",
+  title:"The Tale of Sinuhe composed", when:"Twelfth Dynasty, c. 1938–1759 BC", written:"Twelfth Dynasty",
+  ctx:"Set at the death of Amenemhat I, the tale follows a courtier who flees Egypt and becomes a chieftain among the Asiatics of Retjenu: Levantine pastoral life seen through Egyptian eyes."},
+ {id:12, s:-1900, e:-1900, kind:"thesis", sec:"III", label:"Harran plain horizon",
+  title:"Earliest date a patriarchal-age family could camp on the Harran plain", when:"c. 1900 BC", written:"around 1900 BC",
+  ctx:"The book’s earliest horizon for a family of the patriarchal type on the plain around Harran, in the upper Balikh valley."},
+ {id:13, s:-1900, e:-1801, kind:"text", sec:"V", label:"Iron at Kanesh",
+  title:"Iron sells for many times its weight in silver at Kanesh", when:"Nineteenth century BC", written:"nineteenth century BC",
+  ctx:"Old Assyrian merchants’ letters from Kültepe, ancient Kanesh, price amūtum, a rare iron, at many times its weight in silver."},
+ {id:14, s:-1900, e:-1801, pt:-1875, kind:"thesis", sec:"VI", label:"Joseph’s household writes",
+  title:"Joseph’s household writes down the family memory", when:"Nineteenth century BC (marker at 1875 BC)", written:"in the Twelfth Dynasty, in the nineteenth century BC",
+  ctx:"The book’s thesis places Joseph’s household in Twelfth-Dynasty Egypt, where the family memory first takes written form."},
+ {id:15, s:-1792, e:-1750, kind:"text", sec:"Conventions", label:"Hammurabi",
+  title:"Hammurabi reigns in Babylon", when:"1792–1750 BC", written:"1792–1750 BC",
+  ctx:"Reign dates follow the middle chronology; the high and low chronologies move them by half a century or more."},
+ {id:16, s:-1200, e:-1200, kind:"record", sec:"V", label:"Iron becomes cheap",
+  title:"Iron becomes cheap: the onset of the Iron Age", when:"c. 1200 BC", written:"around 1200 BC",
+  ctx:"Smelted iron turns common across Anatolia and the eastern Mediterranean as the palace economies of the Late Bronze Age collapse."},
+ {id:17, s:-900, e:-601, kind:"text", sec:"V", label:"Gomer, Ashkenaz, Madai",
+  title:"Gomer, Ashkenaz, and Madai enter the Assyrian record", when:"Ninth to seventh centuries BC", written:"between the ninth and seventh centuries BC",
+  ctx:"Gimirrai (Cimmerians), Ishkuza (Scythians), and Mada (Medes) appear in Assyrian annals and letters. Genesis 10:2–3 names Gomer and Madai among the sons of Japheth, and Ashkenaz among the sons of Gomer."},
+ {id:18, s:-600, e:-501, kind:"dating", sec:"IV", label:"Late-composition date",
+  title:"The late-composition school’s date for Genesis", when:"Sixth century BC", written:"sixth century BC",
+  ctx:"The late-composition school places the writing of Genesis in the Babylonian exile or the early Persian period."},
+ {id:19, s:-200, e:-101, kind:"dating", sec:"V", label:"Book of Jubilees",
+  title:"The Book of Jubilees retells Genesis", when:"Second century BC", written:"second century BC",
+  ctx:"Jubilees recasts Genesis and the opening of Exodus as an angelic revelation to Moses on Sinai, ordered in forty-nine-year jubilee periods. James VanderKam dates it c. 160–150 BC."}
+];
+
+var PERIODS = [
+ [-9700,-8500,"Pre-Pottery Neolithic A","PPNA"],
+ [-8500,-6400,"Pre-Pottery Neolithic B","PPNB"],
+ [-6400,-4500,"Pottery Neolithic","PN"],
+ [-4500,-3300,"Chalcolithic","Chalco."],
+ [-3300,-2000,"Early Bronze Age","EBA"],
+ [-2000,-1550,"Middle Bronze Age","MBA"],
+ [-1550,-1200,"Late Bronze Age","LBA"],
+ [-1200,-539,"Iron Age","Iron"],
+ [-539,-332,"Persian","Pers."],
+ [-332,-63,"Hellenistic","Hell."],
+ [-63,0,"Roman","Rom."]
+];
+
+var ERAS = [
+ {name:"All", d:[-10000,0]},
+ {name:"Neolithic", d:[-9800,-7800]},
+ {name:"Chalcolithic–Early Bronze", d:[-4350,-1850]},
+ {name:"Middle Bronze", d:[-2010,-1720]},
+ {name:"Iron Age onward", d:[-1300,0]}
+];
+var LIMITS = [-10600, 200], MIN_SPAN = 80;
+
+var NS = "http://www.w3.org/2000/svg";
+var svg = document.getElementById("svg");
+var domain = ERAS[0].d.slice();
+var activeEra = 0;
+var hidden = {};
+var selected = null;
+var lanesCache = null;
+
+function mk(tag, attrs, parent){
+  var n = document.createElementNS(NS, tag);
+  for (var k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function cssVar(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+function color(kind){ return "var(" + KINDS[kind].v + ")"; }
+function fmtYear(y){
+  if (y >= 0) return "AD " + (y || 1);
+  var a = -y;
+  return (a >= 10000 ? a.toLocaleString("en-US") : String(a)) + " BC";
+}
+function visibleEvents(){ return EVENTS.filter(function(e){ return !hidden[e.kind]; }); }
+
+var mctx = document.createElement("canvas").getContext("2d");
+function textW(t, font){ mctx.font = font || '13px "Source Sans 3", system-ui, sans-serif'; return mctx.measureText(t).width; }
+
+var PAD = 16, BAND_H = 22, TOP = BAND_H + 14, ROW = 40, AXIS_H = 28;
+
+function scaleFor(d, W){
+  var k = (W - 2*PAD) / (d[1] - d[0]);
+  return function(y){ return PAD + (y - d[0]) * k; };
+}
+
+function computeLanes(d, W){
+  var sx = scaleFor(d, W), lanes = [], map = {};
+  var evs = visibleEvents().slice().sort(function(a,b){ return a.s - b.s || b.e - a.e; });
+  evs.forEach(function(e){
+    var x0 = sx(e.s), x1 = sx(e.e);
+    if (x1 < -40 || x0 > W + 40) return;
+    var lx = Math.max(Math.min(x0 - 4, W - PAD - textW(e.label) - 2), PAD + 2);
+    var occS = Math.min(x0, lx) - 4;
+    var occE = Math.max(x1, lx + textW(e.label) + 4) + 14;
+    var i = 0;
+    while (i < lanes.length && lanes[i] > occS) i++;
+    lanes[i] = occE; map[e.id] = i;
+  });
+  return {map:map, n:Math.max(lanes.length,1)};
+}
+
+function niceStep(span, W){
+  var target = span / Math.max(2, Math.floor((W - 2*PAD) / 95));
+  var p = Math.pow(10, Math.floor(Math.log10(target))), m = target / p;
+  return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 2.5 ? 2.5 : m <= 5 ? 5 : 10) * p;
+}
+
+function render(d, lanes){
+  var W = svg.clientWidth || svg.parentNode.clientWidth;
+  var sx = scaleFor(d, W);
+  lanes = lanes || computeLanes(d, W);
+  var H = TOP + lanes.n * ROW + AXIS_H;
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  svg.setAttribute("height", H);
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+  var defs = mk("defs", {}, svg);
+  var cp = mk("clipPath", {id:"clip"}, defs);
+  mk("rect", {x:PAD - 2, y:0, width:W - 2*PAD + 4, height:H}, cp);
+  var g = mk("g", {"clip-path":"url(#clip)"}, svg);
+
+  // period bands
+  PERIODS.forEach(function(p, i){
+    var a = sx(p[0]), b = sx(p[1]);
+    if (b < 0 || a > W) return;
+    mk("rect", {x:a, y:0, width:Math.max(0,b-a), height:H - AXIS_H, fill:"var(" + (i % 2 ? "--band-b" : "--band-a") + ")", opacity:.55}, g);
+    var cl = Math.max(a, PAD), cr = Math.min(b, W - PAD), w = cr - cl;
+    var full = p[2], ab = p[3], lab = null;
+    if (textW(full, '11px "Source Sans 3"') + 12 < w) lab = full; else if (textW(ab, '11px "Source Sans 3"') + 8 < w) lab = ab;
+    if (lab){ var t = mk("text", {x:(cl+cr)/2, y:15, "text-anchor":"middle", "class":"band-label"}, g); t.textContent = lab;
+      var tt = mk("title", {}, t); tt.textContent = full + " (approx. " + fmtYear(p[0]) + "–" + fmtYear(p[1] || -1) + ")"; }
+  });
+
+  // ticks
+  var step = niceStep(d[1] - d[0], W);
+  var axisY = H - AXIS_H;
+  mk("line", {x1:PAD, x2:W-PAD, y1:axisY, y2:axisY, stroke:"var(--muted)", "stroke-width":1}, svg);
+  for (var y = Math.ceil(d[0]/step)*step; y <= d[1]; y += step){
+    var x = sx(y); if (x < PAD - 1 || x > W - PAD + 1) continue;
+    var tg = mk("g", {"class":"tick"}, svg);
+    mk("line", {x1:x, x2:x, y1:BAND_H, y2:axisY + 5, "stroke-dasharray": "2 4"}, tg);
+    if (y !== 0){
+      var tx = mk("text", {x:x, y:axisY + 19, "text-anchor": x < PAD + 30 ? "start" : (x > W - PAD - 30 ? "end" : "middle")}, tg);
+      tx.textContent = fmtYear(Math.round(y));
+    }
+  }
+
+  // events
+  visibleEvents().forEach(function(e){
+    if (!(e.id in lanes.map)) return;
+    var x0 = sx(e.s), x1 = sx(e.e), row = lanes.map[e.id];
+    if (x1 < -200 || x0 > W + 200) return;
+    var yTop = TOP + row * ROW, yMark = yTop + 25, c = color(e.kind);
+    var isSel = selected === e.id;
+    var ev = mk("g", {"class":"ev" + (isSel ? " sel" : ""), tabindex:0, role:"button",
+      "aria-label": e.title + ", " + e.when, "data-id":e.id}, g);
+    var lw = textW(e.label);
+    var lx = Math.max(Math.min(x0 - 4, W - PAD - lw - 2), PAD + 2);
+    mk("rect", {"class":"hit", x:Math.min(x0, lx) - 6, y:yTop + 1, width:Math.max(x1, lx + lw) - Math.min(x0, lx) + 12, height:ROW - 4, rx:4}, ev);
+    var span = x1 - x0;
+    if (span >= 6){
+      mk("rect", {x:x0, y:yMark - 4, width:span, height:8, rx:4, fill:c, opacity: isSel ? 1 : .8}, ev);
+      if (e.pt !== undefined){ var xp = sx(e.pt); mk("circle", {cx:xp, cy:yMark, r:5.5, fill:"var(--surface)", stroke:c, "stroke-width":2.5}, ev); }
+    } else if (e.hist){
+      mk("circle", {cx:(x0+x1)/2, cy:yMark, r:5.5, fill:"var(--surface)", stroke:c, "stroke-width":2, "stroke-dasharray":"2.5 2"}, ev);
+    } else {
+      mk("circle", {cx:(x0+x1)/2, cy:yMark, r:5.5, fill:c}, ev);
+    }
+    if (isSel) mk("circle", {cx: span >= 6 ? (e.pt !== undefined ? sx(e.pt) : x0) : (x0+x1)/2, cy:yMark, r:10, fill:"none", stroke:"var(--focus)", "stroke-width":2}, ev);
+    var t = mk("text", {x:lx, y:yTop + 14}, ev); t.textContent = e.label;
+    var tt = mk("title", {}, ev); tt.textContent = e.title + " — " + e.when;
+  });
+
+  document.getElementById("rangeLabel").textContent = fmtYear(Math.round(d[0])) + " to " + fmtYear(Math.round(d[1]) || -1);
+}
+
+// animation
+var anim = null;
+function ease(t){ return t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2)/2; }
+function animateTo(target){
+  target = clampDomain(target);
+  if (anim) cancelAnimationFrame(anim);
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var W = svg.clientWidth || svg.parentNode.clientWidth;
+  var lanes = computeLanes(target, W);
+  // keep events that are visible during the tween laned
+  var from = domain.slice(), t0 = performance.now(), dur = reduce ? 0 : 520;
+  var union = computeLanes([Math.min(from[0],target[0]), Math.max(from[1],target[1])], W);
+  visibleEvents().forEach(function(e){ if (!(e.id in lanes.map)) { lanes.map[e.id] = Math.min(union.map[e.id] || 0, lanes.n - 1); } });
+  function frame(now){
+    var p = dur ? Math.min(1, (now - t0)/dur) : 1, k = ease(p);
+    domain = [from[0] + (target[0]-from[0])*k, from[1] + (target[1]-from[1])*k];
+    render(domain, p < 1 ? lanes : null);
+    if (p < 1) anim = requestAnimationFrame(frame); else anim = null;
+  }
+  anim = requestAnimationFrame(frame);
+}
+function clampDomain(d){
+  var span = Math.max(MIN_SPAN, Math.min(d[1]-d[0], LIMITS[1]-LIMITS[0]));
+  var a = d[0], b = a + span;
+  if (a < LIMITS[0]){ a = LIMITS[0]; b = a + span; }
+  if (b > LIMITS[1]){ b = LIMITS[1]; a = b - span; }
+  return [a, b];
+}
+function setEra(i){
+  activeEra = i;
+  document.querySelectorAll("#eras .chip").forEach(function(b, j){ b.setAttribute("aria-pressed", j === i ? "true" : "false"); });
+  if (i >= 0) animateTo(ERAS[i].d.slice());
+}
+
+// controls
+var erasEl = document.getElementById("eras");
+ERAS.forEach(function(er, i){
+  var b = document.createElement("button");
+  b.className = "chip"; b.textContent = er.name; b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+  b.addEventListener("click", function(){ setEra(i); });
+  erasEl.appendChild(b);
+});
+var kindsEl = document.getElementById("kinds");
+Object.keys(KINDS).forEach(function(k){
+  var n = EVENTS.filter(function(e){ return e.kind === k; }).length;
+  var b = document.createElement("button");
+  b.className = "chip kind"; b.setAttribute("aria-pressed","true");
+  b.innerHTML = '<span class="dot" style="background:' + color(k) + '"></span>' + KINDS[k].name + ' <span style="color:var(--muted)">' + n + '</span>';
+  b.addEventListener("click", function(){
+    hidden[k] = !hidden[k];
+    b.setAttribute("aria-pressed", hidden[k] ? "false" : "true");
+    if (selected && hidden[EVENTS.filter(function(e){return e.id===selected;})[0].kind]) selected = null;
+    render(domain); buildList(); showDetail();
+  });
+  kindsEl.appendChild(b);
+});
+function zoomBy(f){
+  var c = (domain[0] + domain[1]) / 2, h = (domain[1] - domain[0]) * f / 2;
+  setEra(-1); animateTo([c - h, c + h]);
+}
+document.getElementById("zoomIn").addEventListener("click", function(){ zoomBy(0.5); });
+document.getElementById("zoomOut").addEventListener("click", function(){ zoomBy(2); });
+
+// drag to pan
+var drag = null;
+svg.addEventListener("pointerdown", function(ev){
+  if (ev.button !== 0) return;
+  drag = {x:ev.clientX, d:domain.slice(), moved:false, id:ev.pointerId};
+});
+svg.addEventListener("pointermove", function(ev){
+  if (!drag) return;
+  var dx = ev.clientX - drag.x;
+  if (!drag.moved && Math.abs(dx) < 4) return;
+  if (!drag.moved){ drag.moved = true; svg.setPointerCapture(drag.id); svg.classList.add("dragging"); if (anim){cancelAnimationFrame(anim); anim=null;} }
+  var W = svg.clientWidth, per = (drag.d[1] - drag.d[0]) / (W - 2*PAD);
+  domain = clampDomain([drag.d[0] - dx*per, drag.d[1] - dx*per]);
+  render(domain);
+});
+function endDrag(ev){
+  if (!drag) return;
+  var wasMoved = drag.moved; drag = null; svg.classList.remove("dragging");
+  if (wasMoved){ setEra(-1); return; }
+  var t = ev.target.closest ? ev.target.closest(".ev") : null;
+  if (t) select(+t.getAttribute("data-id"), false);
+}
+svg.addEventListener("pointerup", endDrag);
+svg.addEventListener("pointercancel", function(){ drag = null; svg.classList.remove("dragging"); });
+svg.addEventListener("keydown", function(ev){
+  var t = ev.target.closest ? ev.target.closest(".ev") : null;
+  if (t && (ev.key === "Enter" || ev.key === " ")){ ev.preventDefault(); select(+t.getAttribute("data-id"), false); }
+});
+
+// selection, detail, list
+function ordered(){ return visibleEvents().slice().sort(function(a,b){ return (a.pt!==undefined?a.pt:a.s) - (b.pt!==undefined?b.pt:b.s) || a.id - b.id; }); }
+function select(id, reveal){
+  selected = id;
+  var e = EVENTS.filter(function(x){ return x.id === id; })[0];
+  if (reveal && e){
+    var span = domain[1] - domain[0], need = (e.e - e.s) * 1.5;
+    var inView = e.s >= domain[0] + span*0.04 && e.e <= domain[1] - span*0.25;
+    if (!inView || need > span){
+      var s2 = Math.max(span, need), c = (e.s + e.e)/2;
+      setEra(-1); animateTo([c - s2*0.4, c + s2*0.6]);
+    } else render(domain);
+  } else render(domain);
+  showDetail(); buildList();
+  if (reveal) document.getElementById("chart").scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+var ITAL = /(Journal of Archaeological Science|Annales Veteris Testamenti|Science)/g;
+function richCtx(s){ return esc(s).replace(ITAL, "<i>$1</i>"); }
+function showDetail(){
+  var box = document.getElementById("detail");
+  var e = EVENTS.filter(function(x){ return x.id === selected; })[0];
+  if (!e){
+    box.style.removeProperty("--kc");
+    box.innerHTML = '<p class="empty">Select a marker on the timeline or an entry below to read its context.</p>';
+    return;
+  }
+  var list = ordered(), i = list.indexOf(e);
+  box.style.setProperty("--kc", color(e.kind));
+  box.innerHTML =
+    '<div class="meta"><span class="kind-name">' + KINDS[e.kind].name + '</span><span>Introduction, ' + (e.sec === "Conventions" ? "Conventions" : "§" + e.sec) + '</span>' +
+    (e.hist ? '<span>Historiographical date</span>' : '') + '</div>' +
+    '<h2>' + esc(e.title) + '</h2>' +
+    '<p class="when">' + esc(e.when) + '</p>' +
+    '<p class="written">In the text: “' + esc(e.written) + '”</p>' +
+    '<p class="ctx">' + richCtx(e.ctx) + '</p>' +
+    '<div class="nav"><button class="chip" id="prev"' + (i <= 0 ? " disabled" : "") + '>← Earlier</button>' +
+    '<button class="chip" id="next"' + (i >= list.length - 1 ? " disabled" : "") + '>Later →</button></div>';
+  var p = document.getElementById("prev"), n = document.getElementById("next");
+  if (i > 0) p.addEventListener("click", function(){ select(list[i-1].id, true); });
+  else p.style.opacity = .4;
+  if (i < list.length - 1) n.addEventListener("click", function(){ select(list[i+1].id, true); });
+  else n.style.opacity = .4;
+}
+function buildList(){
+  var ol = document.getElementById("list");
+  ol.innerHTML = "";
+  ordered().forEach(function(e){
+    var li = document.createElement("li"); if (e.id === selected) li.className = "sel";
+    var b = document.createElement("button");
+    b.innerHTML = '<span class="l-date"><span class="dot" style="background:' + color(e.kind) + '"></span>' + esc(e.when.replace(" (marker at 1875 BC)","")) + '</span><span class="l-title">' + esc(e.title) + '</span>';
+    b.addEventListener("click", function(){ select(e.id, true); });
+    li.appendChild(b); ol.appendChild(li);
+  });
+}
+
+document.addEventListener("keydown", function(ev){
+  if (selected === null || /INPUT|TEXTAREA/.test(ev.target.tagName)) return;
+  var list = ordered(), i = list.findIndex(function(x){ return x.id === selected; });
+  if (ev.key === "ArrowRight" && i < list.length - 1){ ev.preventDefault(); select(list[i+1].id, true); }
+  if (ev.key === "ArrowLeft" && i > 0){ ev.preventDefault(); select(list[i-1].id, true); }
+});
+
+var rT; window.addEventListener("resize", function(){ clearTimeout(rT); rT = setTimeout(function(){ render(domain); }, 80); });
+
+render(domain); buildList(); showDetail();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ render(domain); });
+})();
+</script>
+</body>
+</html>

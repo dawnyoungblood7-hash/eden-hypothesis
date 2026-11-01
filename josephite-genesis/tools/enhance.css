@@ -1,0 +1,43 @@
+/* ---- Clickable sigla and omissions ---- */
+button.sig{background:none;border:0;margin:0;padding:0 .04em;font-weight:inherit;line-height:1;cursor:pointer;border-radius:3px}
+button.sig:hover,button.sig[aria-expanded="true"]{background:var(--hl);outline:1px solid var(--rule)}
+button.sig:focus-visible,button.gap:focus-visible,#pop a:focus-visible,#pop button:focus-visible,#back:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+button.gap{font-family:"Source Sans 3",sans-serif;font-size:.62em;vertical-align:.35em;color:var(--muted);background:none;border:0;padding:0 .2em;margin:0 .1em;cursor:pointer;border-radius:3px;letter-spacing:.02em}
+button.gap:hover,button.gap[aria-expanded="true"]{color:var(--accent);background:var(--hl)}
+.gapblock{text-align:center!important;margin:0 0 1em}
+.gapblock button.gap{font-size:.78rem;vertical-align:baseline;border:1px dashed var(--rule);padding:4px 12px;line-height:1.4;max-width:100%}
+.gapblock .gl{font-weight:600;color:var(--accent)}
+body.nogap button.gap,body.nogap .gapblock{display:none}
+body.lang-par p.vv>button.gap{display:block;width:100%;text-align:left;font-size:.75rem;vertical-align:baseline;padding:6px 0;border-top:1px dashed var(--rule);border-radius:0;margin:0}
+body.lang-par p.vv>button.gap::after{content:"  " attr(aria-label)}
+.flash{animation:jgflash 2.4s ease-out}
+@keyframes jgflash{0%,40%{background:var(--hl);box-shadow:0 0 0 4px var(--hl)}100%{background:transparent;box-shadow:0 0 0 4px transparent}}
+#pop{position:absolute;z-index:20;width:min(440px,calc(100vw - 32px));max-height:min(70vh,560px);overflow:auto;background:var(--paper);color:var(--ink);border:1px solid var(--rule);border-radius:8px;box-shadow:0 8px 28px rgba(0,0,0,.18);padding:14px 16px 12px;font-family:"Source Sans 3",sans-serif;font-size:.8rem;line-height:1.5;text-align:left}
+#pop[hidden]{display:none}
+#pop.sheet{position:fixed;left:0;right:0;bottom:0;top:auto!important;width:auto;max-height:72vh;border-radius:12px 12px 0 0}
+#pop .pop-h{display:flex;align-items:baseline;gap:8px;margin:0 28px .4em 0;font-weight:600;font-size:.9rem}
+#pop .pop-h .sig{font-size:1.2em;vertical-align:baseline;margin:0}
+#pop .x{position:absolute;top:6px;right:8px;font:inherit;font-size:1.1rem;line-height:1;background:none;border:0;color:var(--muted);cursor:pointer;padding:4px 6px;border-radius:4px}
+#pop .x:hover{background:var(--hl)}
+#pop p{margin:.35em 0;text-align:left}
+#pop .here{border-left:3px solid var(--accent);padding-left:8px}
+#pop ul{list-style:none;padding:0;margin:.4em 0}
+#pop li{padding:6px 0;border-top:1px solid var(--rule)}
+#pop .links{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:4px}
+#pop a{color:var(--accent);text-decoration:none}
+#pop a:hover{text-decoration:underline}
+#pop .note{color:var(--muted);font-style:italic}
+#pop .show{font:inherit;margin-top:6px;background:var(--bg);color:var(--ink);border:1px solid var(--rule);border-radius:4px;padding:4px 10px;cursor:pointer}
+#pop .show:hover{border-color:var(--accent)}
+#pop .ovs{margin-top:8px}
+#pop .ov{padding:8px 0;border-top:1px solid var(--rule)}
+#pop .ov .r{font-weight:600;color:var(--accent);margin-right:.4em}
+#pop .ov .en{display:block;font-family:"EB Garamond",Georgia,serif;font-size:1.1rem;line-height:1.45}
+#pop .ov .heb{display:block;font-family:"Noto Serif Hebrew","SBL Hebrew","Ezra SIL",serif;font-size:1.15rem;line-height:1.9;text-align:right;margin-top:2px}
+#pop .ov .heb .kt{color:var(--muted)} #pop .ov .heb .qr{color:var(--accent)} #pop .ov .heb .pm{color:var(--muted);font-size:.75em;padding:0 .3em}
+#back{position:fixed;z-index:21;right:16px;bottom:16px;font-family:"Source Sans 3",sans-serif;font-size:.8rem;background:var(--paper);color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:7px 14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+#back[hidden]{display:none}
+#back:hover{background:var(--hl)}
+.refs a{color:var(--accent);text-decoration:none}
+.refs a:hover{text-decoration:underline}
+@media (prefers-reduced-motion:reduce){.flash{animation:none;background:var(--hl)}}

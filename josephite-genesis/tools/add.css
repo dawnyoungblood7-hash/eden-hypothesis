@@ -1,0 +1,35 @@
+/* ---- Hebrew (Leningrad Codex) and language modes ---- */
+nav.bar .seg{display:inline-flex}
+nav.bar .seg button{border-radius:0;margin-left:-1px}
+nav.bar .seg button:first-child{border-radius:4px 0 0 4px;margin-left:0}
+nav.bar .seg button:last-child{border-radius:0 4px 4px 0;font-family:"Noto Serif Hebrew",serif}
+nav.bar button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.heonly,.henote{display:none}
+body.lang-par .heonly,body.lang-he .heonly{display:inline-block}
+body.lang-par .henote,body.lang-he .henote{display:block}
+.henote{font-family:"Source Sans 3",sans-serif;font-size:.78rem;line-height:1.5;color:var(--muted);background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:10px 14px;margin:20px 0 0}
+.vp,.en{display:inline}
+.he{display:none;font-family:"Noto Serif Hebrew","SBL Hebrew","Ezra SIL","Times New Roman",serif;font-size:1.12em;line-height:2;text-align:right}
+.he .kt{color:var(--muted)}
+.he .qr{color:var(--accent)}
+.he .pm{font-size:.75em;color:var(--muted);padding:0 .3em}
+sup.hv{display:none;font-family:"Source Sans 3",sans-serif;font-size:.5em;color:var(--muted);margin:0 .2em;vertical-align:.7em}
+.vp:target{background:var(--hl);border-radius:3px}
+/* Parallel: verse-by-verse rows */
+body.lang-par main.wrap{max-width:1180px}
+body.lang-par .front,body.lang-par .end{max-width:720px;margin-left:auto;margin-right:auto}
+body.lang-par .part p.vv{text-align:left;hyphens:manual}
+body.lang-par .part p.vv .ch{display:block;margin:0 0 .3em;font-family:"Source Sans 3",sans-serif;font-weight:600;font-size:.8em;color:var(--accent)}
+body.lang-par .vp{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:8px 0;border-top:1px solid var(--rule)}
+body.lang-par .vp:hover{background:var(--hl)}
+body.lang-par .en,body.lang-par .he{display:block}
+body.lang-par sup.v,body.lang-par sup.hv{display:inline}
+/* Hebrew only */
+body.lang-he .part p.vv{direction:rtl;text-align:justify}
+body.lang-he .part p.vv .ch{display:inline-block;font-family:"Source Sans 3",sans-serif;font-weight:600;font-size:.75em;color:var(--accent);margin-left:.5em}
+body.lang-he .en{display:none}
+body.lang-he .he{display:inline}
+body.lang-he sup.hv{display:inline}
+@media (max-width:760px){
+  body.lang-par .vp{grid-template-columns:1fr;gap:4px}
+}
