@@ -120,7 +120,7 @@ Fifty multiple-choice questions cover the Introduction and all twenty-one chapte
 
 -   D. the verse is absent from the Septuagint
 
-**Answer: B.** The Gerzeh beads (before 3200 BC) and Tutankhamun's dagger are meteoritic iron, and the Alaca Höyük dagger probably is, on a portable XRF reading of its corroded surface (Jambon 2017), and Old Assyrian texts price iron above gold, if their metal amūtum is iron, as most Assyriologists hold. The Iron Age books of the Bible treat iron as ordinary; Genesis 4 treats it as a marvel, the register of the Bronze Age.
+**Answer: B.** The Gerzeh beads (before 3200 BC) and Tutankhamun's dagger are meteoritic iron, and the Alaca Höyük dagger probably is, on a portable XRF reading of its corroded surface (Jambon 2017); Old Assyrian texts price iron above gold, if their metal *amūtum* is iron, as most Assyriologists hold. The Iron Age books of the Bible treat iron as ordinary; Genesis 4 treats it as a marvel, the register of the Bronze Age.
 
 ### Chapter 4: The Memory in the Names
 
@@ -188,7 +188,7 @@ Fifty multiple-choice questions cover the Introduction and all twenty-one chapte
 
 **Answer: B.** A gloss presupposes both an original and a later reader who needed it explained. The same logic covers Luz and Bethel (Gen 28:19; 35:6) and the Edomite king list of Genesis 36:31.
 
-**15.** The formula *ʾēlleh tôlědôt*, "these are the generations of," heads eleven sections of Genesis, ten times in that form and once, at 5:1, as zeh sēper tôlĕdōt, "this is the book of the generations". What did P. J. Wiseman propose about it?
+**15.** The formula *ʾēlleh tôlĕdôt*, "these are the generations of," heads eleven sections of Genesis, ten times in that form and once, at 5:1, as *zeh sēper tôlĕdôt*, "this is the book of the generations." What did P. J. Wiseman propose about it?
 
 -   A. that it is a scribal colophon closing a tablet, as in cuneiform practice
 
@@ -294,7 +294,7 @@ Fifty multiple-choice questions cover the Introduction and all twenty-one chapte
 
 ### Chapter 10: The Inherited Framework
 
-**23.** Julius Wellhausen's *Prolegomena* (first published in 1878 as Geschichte Israels, vol. 1; retitled 1883) gave classic form to the Graf–Kuenen–Wellhausen thesis, often summed up in the Latin tag *lex post prophetas*. The phrase means
+**23.** Julius Wellhausen's *Prolegomena* (first published in 1878 as *Geschichte Israels*, vol. 1; retitled 1883) gave classic form to the Graf–Kuenen–Wellhausen thesis, often summed up in the Latin tag *lex post prophetas*. The phrase means
 
 -   A. the prophets wrote the law
 

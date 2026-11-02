@@ -217,7 +217,7 @@ window.QUIZ = {
    ],
    "reading": true,
    "answer": 1,
-   "explanation": "The Gerzeh beads (before 3200 BC) and Tutankhamun’s dagger are meteoritic iron, and the Alaca Höyük dagger probably is, on a portable XRF reading of its corroded surface (Jambon 2017), and Old Assyrian texts price iron above gold, if their metal amūtum is iron, as most Assyriologists hold. The Iron Age books of the Bible treat iron as ordinary; Genesis 4 treats it as a marvel, the register of the Bronze Age."
+   "explanation": "The Gerzeh beads (before 3200 BC) and Tutankhamun’s dagger are meteoritic iron, and the Alaca Höyük dagger probably is, on a portable XRF reading of its corroded surface (Jambon 2017); Old Assyrian texts price iron above gold, if their metal <em>amūtum</em> is iron, as most Assyriologists hold. The Iron Age books of the Bible treat iron as ordinary; Genesis 4 treats it as a marvel, the register of the Bronze Age."
   },
   {
    "n": 10,
@@ -292,7 +292,7 @@ window.QUIZ = {
   {
    "n": 15,
    "section": 6,
-   "stem": "The formula <em>ʾēlleh tôlědôt</em>, “these are the generations of,” heads eleven sections of Genesis, ten times in that form and once, at 5:1, as zeh sēper tôlĕdōt, “this is the book of the generations”. What did P. J. Wiseman propose about it?",
+   "stem": "The formula <em>ʾēlleh tôlĕdôt</em>, “these are the generations of,” heads eleven sections of Genesis, ten times in that form and once, at 5:1, as <em>zeh sēper tôlĕdôt</em>, “this is the book of the generations.” What did P. J. Wiseman propose about it?",
    "options": [
     "that it is a scribal colophon closing a tablet, as in cuneiform practice",
     "that it marks the start of each new source document",
@@ -404,7 +404,7 @@ window.QUIZ = {
   {
    "n": 23,
    "section": 10,
-   "stem": "Julius Wellhausen’s <em>Prolegomena</em> (first published in 1878 as Geschichte Israels, vol. 1; retitled 1883) gave classic form to the Graf–Kuenen–Wellhausen thesis, often summed up in the Latin tag <em>lex post prophetas</em>. The phrase means",
+   "stem": "Julius Wellhausen’s <em>Prolegomena</em> (first published in 1878 as <em>Geschichte Israels</em>, vol. 1; retitled 1883) gave classic form to the Graf–Kuenen–Wellhausen thesis, often summed up in the Latin tag <em>lex post prophetas</em>. The phrase means",
    "options": [
     "the prophets wrote the law",
     "the law was lost until the prophets found it",
