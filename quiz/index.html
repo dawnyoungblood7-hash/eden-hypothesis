@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eden Hypothesis Quiz</title>
+<meta name="description" content="Fifty multiple-choice questions on the Introduction and all twenty-one chapters of The Eden Hypothesis by Dawn Youngblood, with answers and explanations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f3ec;--surface:#fffdf8;--ink:#2a241d;--muted:#6b6157;--rule:#ddd3c4;--accent:#b0502a;
+  --right:#2f6b3a;--right-bg:#e4efdf;--wrong:#a3301f;--wrong-bg:#f6e0d9;--tag:#1d5fd1;--tag-bg:#e3ebfa;
+  --serif:"EB Garamond",Garamond,Georgia,serif;--sans:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1815;--surface:#24201c;--ink:#ede6db;--muted:#a99e90;--rule:#3b342d;--accent:#e2865c;
+  --right:#8fd19b;--right-bg:#22321f;--wrong:#ff9a85;--wrong-bg:#3a221c;--tag:#9dbcff;--tag-bg:#1f2a40}}
+:root[data-theme="dark"]{--bg:#1b1815;--surface:#24201c;--ink:#ede6db;--muted:#a99e90;--rule:#3b342d;--accent:#e2865c;
+  --right:#8fd19b;--right-bg:#22321f;--wrong:#ff9a85;--wrong-bg:#3a221c;--tag:#9dbcff;--tag-bg:#1f2a40}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:40px 16px 72px}
+.back{font-family:var(--sans);font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--accent)}
+.kicker{font-family:var(--sans);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:28px 0 8px}
+h1{font-weight:500;font-size:clamp(34px,6vw,48px);line-height:1.08;margin:0 0 14px}
+.lede{color:var(--muted);margin:0 0 28px;max-width:62ch}
+.tag{display:inline-block;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--tag);background:var(--tag-bg);border-radius:4px;padding:1px 7px;vertical-align:2px;white-space:nowrap}
+
+.controls{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;font-family:var(--sans);font-size:15px;margin-bottom:8px}
+.controls label{color:var(--muted)}
+select,.seg button,.btn{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:6px 10px}
+select{max-width:100%;min-width:0}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.seg button{border:0;border-radius:0;border-right:1px solid var(--rule);cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.btn{cursor:pointer}
+.btn:hover,select:hover{border-color:var(--muted)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.score{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);padding:10px 0 10px;margin-bottom:8px;font-family:var(--sans);font-size:15px;display:flex;gap:14px;align-items:center}
+.score .nums{white-space:nowrap}
+.score strong{font-weight:600}
+.bar{flex:1;height:6px;background:var(--rule);border-radius:3px;overflow:hidden;display:flex}
+.bar span{display:block;height:100%}
+.bar .r{background:var(--right)}
+.bar .w{background:var(--wrong)}
+
+h2{font-family:var(--sans);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:40px 0 0}
+h3{font-weight:500;font-size:25px;line-height:1.2;margin:4px 0 6px}
+.q{padding:18px 0 22px;border-bottom:1px solid var(--rule)}
+.q:last-child{border-bottom:0}
+.stem{margin:0 0 12px}
+.num{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--accent);margin-right:6px}
+.opts{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.opt{width:100%;text-align:left;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:10px 14px 10px 46px;position:relative;cursor:pointer;line-height:1.4}
+.opt:hover:not(:disabled){border-color:var(--muted)}
+.opt .l{position:absolute;left:14px;top:10px;font-family:var(--sans);font-weight:600;font-size:15px;color:var(--muted)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--right);background:var(--right-bg)}
+.opt.right .l{color:var(--right)}
+.opt.wrong{border-color:var(--wrong);background:var(--wrong-bg)}
+.opt.wrong .l{color:var(--wrong)}
+.opt.dim{opacity:.6}
+.fb{margin:14px 0 0;padding:12px 16px;border-left:3px solid var(--rule);background:var(--surface);border-radius:0 6px 6px 0}
+.fb .v{font-family:var(--sans);font-weight:600;font-size:15px;display:block;margin-bottom:2px}
+.fb.ok{border-left-color:var(--right)}.fb.ok .v{color:var(--right)}
+.fb.no{border-left-color:var(--wrong)}.fb.no .v{color:var(--wrong)}
+.empty{color:var(--muted);font-style:italic;margin:32px 0}
+
+.done{margin:40px 0 0;padding:22px 20px;background:var(--surface);border:1px solid var(--rule);border-radius:10px}
+.done h3{margin:0 0 6px}
+.done p{margin:0 0 14px;color:var(--muted)}
+.done .row{display:flex;flex-wrap:wrap;gap:10px;font-family:var(--sans);font-size:15px}
+footer{margin-top:48px;font-family:var(--sans);font-size:14px;color:var(--muted)}
+footer a{color:inherit}
+@media (max-width:520px){
+  body{font-size:18px}
+  .controls{font-size:14px}
+  .seg button{padding:6px 8px}
+  .opt{padding-left:40px}.opt .l{left:12px}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="../">← The Eden Hypothesis</a>
+  <p class="kicker">Dawn Youngblood · The Eden Hypothesis</p>
+  <h1>Chapter Quiz</h1>
+  <p class="lede" id="intro"></p>
+
+  <div class="controls">
+    <label for="sec">Chapter</label>
+    <select id="sec"></select>
+    <div class="seg" role="group" aria-label="Question type">
+      <button type="button" data-kind="all" aria-pressed="true">All</button>
+      <button type="button" data-kind="fact" aria-pressed="false">Settled facts</button>
+      <button type="button" data-kind="reading" aria-pressed="false">The book’s reading</button>
+      <button type="button" data-kind="missed" aria-pressed="false">Missed</button>
+    </div>
+    <button type="button" class="btn" id="reset">Start over</button>
+  </div>
+
+  <div class="score" aria-live="polite">
+    <span class="nums" id="nums"></span>
+    <div class="bar" aria-hidden="true"><span class="r" id="barR"></span><span class="w" id="barW"></span></div>
+  </div>
+
+  <div id="list"></div>
+  <div id="done"></div>
+
+  <footer><p>Questions follow the master manuscript of October 1, 2026. More at <a href="https://dawnyoungblood.com">dawnyoungblood.com</a></p></footer>
+</main>
+
+<script src="data/questions.js"></script>
+<script>
+(function(){
+  var Q = window.QUIZ, KEY = "eden-quiz-answers-v1";
+  var answers = load(), filter = {sec: "all", kind: "all"};
+  var $ = function(id){ return document.getElementById(id); };
+
+  $("intro").innerHTML = Q.intro.replace(/<em>\(the book.s reading\)<\/em>/,
+    '<span class="tag">The book’s reading</span>');
+
+  // Chapter menu, grouped by part
+  var sel = $("sec"), groups = {}, opt = document.createElement("option");
+  opt.value = "all"; opt.textContent = "All chapters (" + Q.questions.length + ")"; sel.appendChild(opt);
+  Q.sections.forEach(function(s, i){
+    var g = groups[s.part];
+    if(!g){ g = groups[s.part] = document.createElement("optgroup"); g.label = s.part; sel.appendChild(g); }
+    var o = document.createElement("option"); o.value = String(i);
+    o.textContent = s.chapter.replace(/<[^>]+>/g, ""); g.appendChild(o);
+  });
+
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(answers)); } catch(e){} }
+
+  function visible(){
+    return Q.questions.filter(function(q){
+      if(filter.sec !== "all" && String(q.section) !== filter.sec) return false;
+      if(filter.kind === "fact") return !q.reading;
+      if(filter.kind === "reading") return q.reading;
+      if(filter.kind === "missed") return q.n in answers && answers[q.n] !== q.answer;
+      return true;
+    });
+  }
+
+  function render(){
+    var list = $("list"), qs = visible(), lastSec = -1, lastPart = null;
+    list.innerHTML = "";
+    if(!qs.length){
+      list.innerHTML = '<p class="empty">' + (filter.kind === "missed"
+        ? "No missed questions here. Answer some first, or try another chapter."
+        : "No questions match this filter.") + "</p>";
+    }
+    qs.forEach(function(q){
+      var s = Q.sections[q.section];
+      if(q.section !== lastSec){
+        if(s.part !== lastPart && s.part !== "Introduction"){
+          var h2 = document.createElement("h2"); h2.textContent = s.part; list.appendChild(h2); lastPart = s.part;
+        } else if(s.part === "Introduction"){ lastPart = s.part; }
+        var h3 = document.createElement("h3"); h3.innerHTML = s.chapter;
+        if(s.part === "Introduction") h3.style.marginTop = "36px";
+        list.appendChild(h3); lastSec = q.section;
+      }
+      list.appendChild(card(q));
+    });
+    tally(qs);
+  }
+
+  function card(q){
+    var el = document.createElement("section"); el.className = "q"; el.id = "q" + q.n;
+    var p = document.createElement("p"); p.className = "stem";
+    p.innerHTML = '<span class="num">' + q.n + ".</span>" + q.stem +
+      (q.reading ? ' <span class="tag">The book’s reading</span>' : "");
+    el.appendChild(p);
+    var ul = document.createElement("ul"); ul.className = "opts";
+    q.options.forEach(function(text, i){
+      var li = document.createElement("li"), b = document.createElement("button");
+      b.type = "button"; b.className = "opt";
+      b.innerHTML = '<span class="l">' + "ABCD"[i] + ".</span>" + text;
+      b.addEventListener("click", function(){ choose(q, i, el); });
+      li.appendChild(b); ul.appendChild(li);
+    });
+    el.appendChild(ul);
+    if(q.n in answers) mark(q, el);
+    return el;
+  }
+
+  function choose(q, i, el){
+    if(q.n in answers) return;
+    answers[q.n] = i; save(); mark(q, el);
+    tally(visible());
+  }
+
+  function mark(q, el){
+    var pick = answers[q.n], ok = pick === q.answer;
+    el.querySelectorAll(".opt").forEach(function(b, i){
+      b.disabled = true;
+      if(i === q.answer) b.classList.add("right");
+      else if(i === pick) b.classList.add("wrong");
+      else b.classList.add("dim");
+      if(i === pick) b.setAttribute("aria-label", "Your answer, " + (ok ? "correct" : "incorrect") + ": " + b.textContent);
+    });
+    var fb = document.createElement("div"); fb.className = "fb " + (ok ? "ok" : "no"); fb.setAttribute("role", "status");
+    fb.innerHTML = '<span class="v">' + (ok ? "Correct." : "Not quite. The answer is " + "ABCD"[q.answer] + ".") +
+      "</span>" + q.explanation;
+    el.appendChild(fb);
+  }
+
+  function tally(qs){
+    var scope = filter.kind === "missed" ? Q.questions.filter(function(q){
+      return filter.sec === "all" || String(q.section) === filter.sec; }) : qs;
+    var n = scope.length, a = 0, r = 0;
+    scope.forEach(function(q){ if(q.n in answers){ a++; if(answers[q.n] === q.answer) r++; } });
+    $("nums").innerHTML = "<strong>" + r + "</strong> correct · " + a + " of " + n + " answered";
+    $("barR").style.width = (n ? 100 * r / n : 0) + "%";
+    $("barW").style.width = (n ? 100 * (a - r) / n : 0) + "%";
+    var done = $("done");
+    done.innerHTML = "";
+    if(n && a === n && filter.kind !== "missed"){
+      var pct = Math.round(100 * r / n), box = document.createElement("div"); box.className = "done";
+      box.innerHTML = "<h3>" + r + " of " + n + " correct (" + pct + "%)</h3><p>" +
+        (r === n ? "A clean sweep." : "Review the questions you missed, or start this set again.") + '</p><div class="row"></div>';
+      var row = box.querySelector(".row");
+      if(r < n) row.appendChild(button("Review missed", function(){ setKind("missed"); }));
+      row.appendChild(button("Start this set over", function(){ clear(scope); }));
+      done.appendChild(box);
+    }
+  }
+
+  function button(label, fn){ var b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = label; b.addEventListener("click", fn); return b; }
+  function clear(qs){ qs.forEach(function(q){ delete answers[q.n]; }); save(); if(filter.kind === "missed") setKind("all"); else render(); window.scrollTo({top: 0}); }
+  function setKind(k){
+    filter.kind = k;
+    document.querySelectorAll(".seg button").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.kind === k)); });
+    render();
+  }
+
+  sel.addEventListener("change", function(){ filter.sec = sel.value; render(); });
+  document.querySelectorAll(".seg button").forEach(function(b){ b.addEventListener("click", function(){ setKind(b.dataset.kind); }); });
+  $("reset").addEventListener("click", function(){
+    if(confirm("Clear all your answers and start over?")){ answers = {}; save(); setKind("all"); window.scrollTo({top: 0}); }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

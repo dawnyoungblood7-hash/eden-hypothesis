@@ -6,3 +6,4 @@ https://dawnyoungblood7-hash.github.io/eden-hypothesis/
 - `index.html`: home page listing the materials
 - `timelines/`: interactive chapter timelines (one HTML file per chapter)
 - `josephite-genesis/`: the Josephite Genesis reading text; `tools/` holds the scripts that built it
+- `quiz/`: the interactive chapter quiz; `quiz/tools/` holds the quiz text and the script that builds `quiz/data/questions.js` from it
