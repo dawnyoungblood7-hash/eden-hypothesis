@@ -1,6 +1,6 @@
 # The Eden Hypothesis: Chapter Quiz
 
-Nov 1, 2026 · \@Dawn
+2026-11-01 · @Dawn
 
 Fifty multiple-choice questions cover the Introduction and all twenty-one chapters of the master manuscript of October 1, 2026, at least two per chapter. The answer and a short explanation follow each question. A question marked *(the book's reading)* tests the book's thesis; the others test facts the scholarly literature treats as settled, and an explanation notes any live dispute.
 
@@ -108,7 +108,7 @@ Fifty multiple-choice questions cover the Introduction and all twenty-one chapte
 
 -   D. the cemetery at Varna on the Black Sea
 
-**Answer: C.** Alba Palmieri's team found them in 1983 on the floor of a palace room at Arslantepe, near Malatya. The sword at the gate of Eden (Gen 3:24) therefore sets a floor for the telling no earlier than the late fourth millennium.
+**Answer: C.** The Italian mission under Alba Palmieri found them in the 1980s on the floor of a palace room at Arslantepe, near Malatya. The sword at the gate of Eden (Gen 3:24) therefore sets a floor for the telling no earlier than the late fourth millennium.
 
 **9.** Critics long cited the iron of Tubal-cain (Gen 4:22) as proof of Iron Age composition. On what grounds does the chapter reverse that reading? *(the book's reading)*
 
@@ -120,7 +120,7 @@ Fifty multiple-choice questions cover the Introduction and all twenty-one chapte
 
 -   D. the verse is absent from the Septuagint
 
-**Answer: B.** The Gerzeh beads (before 3200 BC), the Alaca Höyük dagger, and Tutankhamun's dagger are all meteoritic iron, and Old Assyrian texts price iron above gold, if their metal amūtum is iron, as most Assyriologists hold. The Iron Age books of the Bible treat iron as ordinary; Genesis 4 treats it as a marvel, the register of the Bronze Age.
+**Answer: B.** The Gerzeh beads (before 3200 BC) and Tutankhamun's dagger are meteoritic iron, and the Alaca Höyük dagger probably is, on a portable XRF reading of its corroded surface (Jambon 2017), and Old Assyrian texts price iron above gold, if their metal amūtum is iron, as most Assyriologists hold. The Iron Age books of the Bible treat iron as ordinary; Genesis 4 treats it as a marvel, the register of the Bronze Age.
 
 ### Chapter 4: The Memory in the Names
 
@@ -188,7 +188,7 @@ Fifty multiple-choice questions cover the Introduction and all twenty-one chapte
 
 **Answer: B.** A gloss presupposes both an original and a later reader who needed it explained. The same logic covers Luz and Bethel (Gen 28:19; 35:6) and the Edomite king list of Genesis 36:31.
 
-**15.** The formula *ʾēlleh tôlědôt*, "these are the generations of," occurs eleven times in Genesis. What did P. J. Wiseman propose about it?
+**15.** The formula *ʾēlleh tôlědôt*, "these are the generations of," heads eleven sections of Genesis, ten times in that form and once, at 5:1, as zeh sēper tôlĕdōt, "this is the book of the generations". What did P. J. Wiseman propose about it?
 
 -   A. that it is a scribal colophon closing a tablet, as in cuneiform practice
 
@@ -294,7 +294,7 @@ Fifty multiple-choice questions cover the Introduction and all twenty-one chapte
 
 ### Chapter 10: The Inherited Framework
 
-**23.** Julius Wellhausen's *Prolegomena* (1878) condensed its central claim into the phrase *lex post prophetas*. The phrase means
+**23.** Julius Wellhausen's *Prolegomena* (first published in 1878 as Geschichte Israels, vol. 1; retitled 1883) gave classic form to the Graf–Kuenen–Wellhausen thesis, often summed up in the Latin tag *lex post prophetas*. The phrase means
 
 -   A. the prophets wrote the law
 
@@ -304,7 +304,7 @@ Fifty multiple-choice questions cover the Introduction and all twenty-one chapte
 
 -   D. the law came after the prophets, so the Priestly material is late
 
-**Answer: D.** Wellhausen dated the Priestly law to the exile and after, and placed Genesis 1 at the far end of that development. The late date of Genesis rests more on that reconstruction of Israel's religion than on any dated manuscript.
+**Answer: D.** Wellhausen dated the Priestly law to the exile and after, and placed Genesis 1 at the far end of that development. The late date of Genesis rests more on that reconstruction of Israel's religion than on any dated manuscript. The tag is a later summary of the school's position; Wellhausen himself credits Graf with placing the law after the prophets.
 
 **24.** Persian loanwords cluster in Esther, Daniel, Ezra, Nehemiah, and Chronicles. What word does Genesis use for Eden's garden?
 
